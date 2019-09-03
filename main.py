@@ -25,9 +25,10 @@ red = (247,8,8)
 black = (0,0,0)
 gray = (165,179,172)
 
-#variaveis para contar os acertos e erros da musica
+#variaveis para contar os acertos e erros da musica e o multiplicador da velocidade da música
 contador = 0
 erros = 0
+multiplicador = 7
 
 #leitura do texto das notas e retornando-as para uma função que cria cada objeto com seus atributos corretos
 lista_notas = txtToList.notas()
@@ -132,13 +133,13 @@ while True:
         elif obj.time > time.time()-ini:
             break
         elif obj.cor == 'verde' and obj.time <= time.time()-ini:
-            obj.atributos = movimento.movimento_verde(obj.atributos)
+            obj.atributos = movimento.movimento_verde(obj.atributos, multiplicador)
         elif obj.cor == 'vermelho' and obj.time <= time.time()-ini:
-            obj.atributos = movimento.movimento_vermelho(obj.atributos)
+            obj.atributos = movimento.movimento_vermelho(obj.atributos, multiplicador)
         elif obj.cor == 'amarelo' and obj.time <= time.time()-ini:
-            obj.atributos = movimento.movimento_amarelo(obj.atributos)
+            obj.atributos = movimento.movimento_amarelo(obj.atributos, multiplicador)
         elif obj.cor == 'azul' and obj.time <= time.time()-ini:
-            obj.atributos = movimento.movimento_azul(obj.atributos)
+            obj.atributos = movimento.movimento_azul(obj.atributos, multiplicador)
 
     tempo.tick(30)
     pygame.display.update()

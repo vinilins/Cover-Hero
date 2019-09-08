@@ -1,10 +1,10 @@
 #cordenadas iniciais
-tamanho_x = 30
-tamanho_y = 20
-verde_x,verde_y = 325,250
-vermelho_x,vermelho_y = 365,250
-amarelo_x,amarelo_y = 405,250
-azul_x,azul_y = 445,240
+tamanho_x = tamanho_y = 40
+verde_y = vermelho_y = amarelo_y = azul_y = 295
+verde_x = 555
+vermelho_x = 590
+amarelo_x = 625
+azul_x = 660
 
 #recebe uma lista com listas indicando a cor e o tempo de aparição ex: [['verde', 3.4],['vermelho',5.5]]
 def criar_objetos(lista_notas):

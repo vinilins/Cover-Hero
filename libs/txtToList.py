@@ -12,6 +12,8 @@ def notas():
             l.append('amarelo')
         elif j[0] == 'k':
             l.append('azul')
+        elif j[0] == 'l':
+            l.append('laranja')
         l.append(float(j[1]))
         if len(l) == 2:
             lista_notas.append(l)

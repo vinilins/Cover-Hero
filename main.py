@@ -25,10 +25,11 @@ red = (247,8,8)
 black = (0,0,0)
 gray = (165,179,172)
 
-#variaveis para contar os acertos e erros da musica e o multiplicador da velocidade da música
+#variaveis para contar os acertos e erros da musica e o multiplicador da velocidade da música e a taxa de crescimento das notas na tela
 contador = 0
 erros = 0
 multiplicador = 2.5
+tamanho = 0.14
 
 #leitura do texto das notas e retornando-as para uma função que cria cada objeto com seus atributos corretos
 lista_notas = txtToList.notas()
@@ -58,6 +59,7 @@ while True:
     img_vermelha = pygame.image.load('imagens/image_1_2.png').convert_alpha()
     img_amarela = pygame.image.load('imagens/image_1_3.png').convert_alpha()
     img_azul = pygame.image.load('imagens/image_1_4.png').convert_alpha()
+    img_laranja = pygame.image.load('imagens/image_1_1.png').convert_alpha()
     
     #definição do fundo preto
     screen.fill((black))
@@ -95,6 +97,7 @@ while True:
         img_vermelha = pygame.transform.smoothscale( img_vermelha, (int(obj.atributos[2]), int(obj.atributos[3])) )
         img_amarela = pygame.transform.smoothscale( img_amarela, (int(obj.atributos[2]), int(obj.atributos[3])) )
         img_azul = pygame.transform.smoothscale( img_azul, (int(obj.atributos[2]), int(obj.atributos[3])) )
+        img_laranja = pygame.transform.smoothscale( img_laranja, (int(obj.atributos[2]), int(obj.atributos[3])) )
 
         if obj.time > time.time()-ini:
             break
@@ -106,6 +109,8 @@ while True:
             screen.blit(img_amarela, (obj.atributos[0],obj.atributos[1]))
         elif obj.cor == 'azul' and obj.time <= time.time()-ini:
             screen.blit(img_azul, (obj.atributos[0],obj.atributos[1]))
+        elif obj.cor == 'laranja' and obj.time <= time.time()-ini:
+            screen.blit(img_laranja, (obj.atributos[0],obj.atributos[1]))
             
     pygame.display.flip()
     
@@ -139,6 +144,10 @@ while True:
                 contador = acertos.acertou_nota(objetos_musica[0], contador)
                 if objetos_musica[0].acerto==True:
                     del(objetos_musica[0])
+            if event.key == pygame.K_l:
+                contador = acertos.acertou_nota(objetos_musica[0], contador)
+                if objetos_musica[0].acerto==True:
+                    del(objetos_musica[0])
     
     #obter posição do mouse
     mouse_pos = pygame.mouse.get_pos()
@@ -152,13 +161,15 @@ while True:
         elif obj.time > time.time()-ini:
             break
         elif obj.cor == 'verde' and obj.time <= time.time()-ini:
-            obj.atributos = movimento.movimento_verde(obj.atributos, multiplicador)
+            obj.atributos = movimento.movimento_verde(obj.atributos, multiplicador, tamanho)
         elif obj.cor == 'vermelho' and obj.time <= time.time()-ini:
-            obj.atributos = movimento.movimento_vermelho(obj.atributos, multiplicador)
+            obj.atributos = movimento.movimento_vermelho(obj.atributos, multiplicador, tamanho)
         elif obj.cor == 'amarelo' and obj.time <= time.time()-ini:
-            obj.atributos = movimento.movimento_amarelo(obj.atributos, multiplicador)
+            obj.atributos = movimento.movimento_amarelo(obj.atributos, multiplicador, tamanho)
         elif obj.cor == 'azul' and obj.time <= time.time()-ini:
-            obj.atributos = movimento.movimento_azul(obj.atributos, multiplicador)
+            obj.atributos = movimento.movimento_azul(obj.atributos, multiplicador, tamanho)
+        elif obj.cor == 'laranja' and obj.time <= time.time()-ini:
+            obj.atributos = movimento.movimento_laranja(obj.atributos, multiplicador, tamanho)
 
     tempo.tick(60)
     pygame.display.update()

@@ -1,10 +1,11 @@
 #cordenadas iniciais
 tamanho_x = tamanho_y = 40
-verde_y = vermelho_y = amarelo_y = azul_y = 295
+verde_y = vermelho_y = amarelo_y = azul_y = laranja_y = 295
 verde_x = 555
 vermelho_x = 590
 amarelo_x = 625
 azul_x = 660
+laranja_x = 695
 
 #recebe uma lista com listas indicando a cor e o tempo de aparição ex: [['verde', 3.4],['vermelho',5.5]]
 def criar_objetos(lista_notas):
@@ -18,6 +19,8 @@ def criar_objetos(lista_notas):
             nota = Notas(amarelo_x, amarelo_y, tamanho_x, tamanho_y,'amarelo',  e[1])
         elif e[0] == 'azul':
             nota = Notas(azul_x, azul_y, tamanho_x, tamanho_y,'azul',  e[1])
+        elif e[0] == 'laranja':
+            nota = Notas(laranja_x, laranja_y, tamanho_x, tamanho_y,'laranja',  e[1])
         lista_objetos.append(nota)
     return lista_objetos
 

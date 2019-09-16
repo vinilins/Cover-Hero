@@ -25,11 +25,16 @@ red = (247,8,8)
 black = (0,0,0)
 gray = (165,179,172)
 
-#variaveis para contar os acertos e erros da musica e o multiplicador da velocidade da música e a taxa de crescimento das notas na tela
+#constantes das coordenadas da animação do acerto das notas
+LARGURA = 395
+ALTURA =  555
+
+#variaveis para contar os acertos e erros da musica e o multiplicador da velocidade da música e a taxa de crescimento das notas na tela e o fps do jogo
 contador = 0
 erros = 0
-multiplicador = 2.5
+multiplicador = 3.5
 tamanho = 0.14
+fps = 60
 
 #leitura do texto das notas e retornando-as para uma função que cria cada objeto com seus atributos corretos
 lista_notas = txtToList.notas()
@@ -52,6 +57,7 @@ verde_press = imagem.press('verde')
 vermelho_press = imagem.press('vermelho')
 azul_press = imagem.press('azul')
 amarelo_press = imagem.press('amarelo')
+laranja_press = imagem.press('laranja')
 
 while True:
     #atribuição das imagens das notas da música
@@ -80,7 +86,7 @@ while True:
             verde_press.img = 1
         else:
             test = pygame.image.load('imagens/split/image_'+str(verde_press.img)+'.png').convert_alpha()
-            screen.blit(test, (215,515))
+            screen.blit(test, (LARGURA,ALTURA))
             verde_press.img+=1
     if vermelho_press.cor == 'vermelho' and vermelho_press.appear == True:
         if vermelho_press.img > 16:
@@ -88,8 +94,35 @@ while True:
             vermelho_press.img = 1
         else:
             test = pygame.image.load('imagens/split/image_'+str(vermelho_press.img)+'.png').convert_alpha()
-            screen.blit(test, (315,515))
+            screen.blit(test, (LARGURA+100,ALTURA))
             vermelho_press.img+=1
+    
+    if amarelo_press.cor == 'amarelo' and amarelo_press.appear == True:
+        if amarelo_press.img > 16:
+            amarelo_press.appear = False
+            amarelo_press.img = 1
+        else:
+            test = pygame.image.load('imagens/split/image_'+str(amarelo_press.img)+'.png').convert_alpha()
+            screen.blit(test, (LARGURA+200,ALTURA))
+            amarelo_press.img+=1
+    
+    if azul_press.cor == 'azul' and azul_press.appear == True:
+        if azul_press.img > 16:
+            azul_press.appear = False
+            azul_press.img = 1
+        else:
+            test = pygame.image.load('imagens/split/image_'+str(azul_press.img)+'.png').convert_alpha()
+            screen.blit(test, (LARGURA+300,ALTURA))
+            azul_press.img+=1
+
+    if laranja_press.cor == 'laranja' and laranja_press.appear == True:
+        if laranja_press.img > 16:
+            laranja_press.appear = False
+            laranja_press.img = 1
+        else:
+            test = pygame.image.load('imagens/split/image_'+str(laranja_press.img)+'.png').convert_alpha()
+            screen.blit(test, (LARGURA+400,ALTURA))
+            laranja_press.img+=1
 
     #for plotando os objetos nota na tela de acordo com seus atributos "tempo" e "cor"
     for obj in objetos_musica:
@@ -119,8 +152,8 @@ while True:
     #o contador ou não
     for event in pygame.event.get() :  
         if event.type == pygame.QUIT : 
-            print(f"contador: {contador}")
-            print(f"erros: {erros}")
+            # print(f"contador: {contador}")
+            # print(f"erros: {erros}")
             pygame.quit() 
             quit()  
         if event.type == pygame.KEYDOWN:
@@ -139,14 +172,20 @@ while True:
             if event.key == pygame.K_j:
                 contador = acertos.acertou_nota(objetos_musica[0], contador)
                 if objetos_musica[0].acerto==True:
+                    amarelo_press.appear = True
+                    amarelo_press.img = 1
                     del(objetos_musica[0])
             if event.key == pygame.K_k:
                 contador = acertos.acertou_nota(objetos_musica[0], contador)
                 if objetos_musica[0].acerto==True:
+                    azul_press.appear = True
+                    azul_press.img = 1
                     del(objetos_musica[0])
             if event.key == pygame.K_l:
                 contador = acertos.acertou_nota(objetos_musica[0], contador)
                 if objetos_musica[0].acerto==True:
+                    laranja_press.appear = True
+                    laranja_press.img = 1
                     del(objetos_musica[0])
     
     #obter posição do mouse
@@ -155,7 +194,7 @@ while True:
     
     #for movendo os objetos pela superfície cinza de acordo com suas cores 
     for obj in objetos_musica:
-        if obj.atributos[1] > 660:
+        if obj.atributos[1] > 640:
             erros+=1
             del(objetos_musica[objetos_musica.index(obj)])
         elif obj.time > time.time()-ini:
@@ -171,5 +210,5 @@ while True:
         elif obj.cor == 'laranja' and obj.time <= time.time()-ini:
             obj.atributos = movimento.movimento_laranja(obj.atributos, multiplicador, tamanho)
 
-    tempo.tick(60)
+    tempo.tick(fps)
     pygame.display.update()
